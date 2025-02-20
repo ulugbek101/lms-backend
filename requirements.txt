@@ -1,0 +1,11 @@
+asgiref==3.8.1
+Django==5.1.6
+django-modeltranslation==0.19.12
+djangorestframework==3.15.2
+djangorestframework_simplejwt==5.4.0
+environs==14.1.1
+marshmallow==3.26.1
+packaging==24.2
+PyJWT==2.10.1
+python-dotenv==1.0.1
+sqlparse==0.5.3
