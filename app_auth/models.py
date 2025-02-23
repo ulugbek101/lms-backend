@@ -2,10 +2,11 @@ from uuid import uuid4
 from datetime import date
 from decimal import Decimal
 
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
-from .roles import UserRoles
+from .utils import UserRoles, LessonDays
 from .managers import UserManager, SuperAdminManager, AdminManager, TeacherManager, ParentManager, StudentManager
 from .validators import group_price_validator
 
@@ -73,7 +74,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def full_name(self):
         """ Returns full name of a User """
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name.capitalize()} {self.last_name.capitalize()}"
 
     @property
     def is_fully_paid(self) -> tuple[bool, Decimal]:
@@ -182,6 +183,26 @@ class Group(models.Model):
     teacher = models.ForeignKey(to=Teacher, on_delete=models.PROTECT)
     name = models.CharField(max_length=255, unique=True)
     price = models.DecimalField(max_digits=12, decimal_places=2, validators=[group_price_validator])
+    room = models.ForeignKey("Room", on_delete=models.SET_NULL, null=True)
+    lesson_days = models.CharField(max_length=255, choices=LessonDays.choices)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
 
     def __str__(self):
         return self.name
+
+    @property
+    def has_active_lesson(self):
+        now_time = timezone.localtime().time()
+        return self.start_time <= now_time <= self.end_time
+
+
+class Room(models.Model):
+    alias_name = models.CharField(max_length=255, null=True, blank=True)
+    number = models.IntegerField(unique=True)
+    floor = models.IntegerField(default=3)
+
+    def __str__(self):
+        return f"{self.alias_name if self.alias_name else self.number}"
+
+

@@ -20,6 +20,7 @@ INSTALLED_APPS = [
 
     # Custom apps
     'app_auth',
+    'app_main',
 
     # 3rd party apps
     'rest_framework',
@@ -52,6 +53,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Custom context processor to add global varibles for all templates
+                'app_auth.context_processors.global_variables',
             ],
         },
     },

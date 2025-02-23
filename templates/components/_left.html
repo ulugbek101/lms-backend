@@ -1,0 +1,78 @@
+{% load i18n %}
+{% load i18n %}
+<aside id="leftBar" class="relative px-1 py-2 w-1/5 border-e border-e-gray-600 transition-all duration-300 ease-in-out">
+    <div id="hideLeftBarBtn"
+         class="dark:text-gray-300 flex items-center justify-center transition rounded border bg-gray-900 active:scale-90 border-gray-600 hover:cursor-pointer max-w-max absolute right-[-24px] top-[12px] p-1">
+        <span id="toggleIcon" class="material-icons transition-transform duration-300">first_page</span>
+    </div>
+    <div class="overflow-hidden flex flex-col gap-2">
+        <a href="" class="flex flex-row items-center gap-2 font-mendium dark:text-gray-300 hover:text-white py-2 px-4 w-full rounded-lg transition hover:bg-gray-600 hover:cursor-pointer active:scale-90">
+            <span class="material-icons">layers</span>
+            <p class="leftBarLink transition-opacity duration-200">{% trans 'Fanlar' %}</p>
+        </a>
+        <a href="" class="flex flex-row items-center gap-2 font-mendium dark:text-gray-300 hover:text-white py-2 px-4 w-full rounded-lg transition hover:bg-gray-600 hover:cursor-pointer active:scale-90">
+            <span class="material-icons">groups</span>
+            <p class="leftBarLink transition-opacity duration-200">{% trans 'Guruhlar' %}</p>
+        </a>
+        <a href="" class="flex flex-row items-center gap-2 font-mendium dark:text-gray-300 hover:text-white py-2 px-4 w-full rounded-lg transition hover:bg-gray-600 hover:cursor-pointer active:scale-90">
+            <span class="material-icons">school</span>
+            <p class="leftBarLink transition-opacity duration-200">{% trans 'Ustozlar' %}</p>
+        </a>
+        <a href="" class="flex flex-row items-center gap-2 font-mendium dark:text-gray-300 hover:text-white py-2 px-4 w-full rounded-lg transition hover:bg-gray-600 hover:cursor-pointer active:scale-90">
+            <span class="material-icons">request_quote</span>
+            <p class="leftBarLink transition-opacity duration-200">{% trans 'Chiqimlar' %}</p>
+        </a>
+        <a href="" class="flex flex-row items-center gap-2 font-mendium dark:text-gray-300 hover:text-white py-2 px-4 w-full rounded-lg transition hover:bg-gray-600 hover:cursor-pointer active:scale-90">
+            <span class="material-icons">event</span>
+            <p class="leftBarLink transition-opacity duration-200">{% trans "To'lovlar" %}</p>
+        </a>
+        <a href="{% url 'analytics' %}" class="flex flex-row items-center gap-2 font-mendium dark:text-gray-300 hover:text-white py-2 px-4 w-full rounded-lg transition hover:cursor-pointer {% if analytics_page %} bg-gray-600 hover:bg-gray-700 {% else %} hover:bg-gray-600 {% endif %} active:scale-90">
+            <span class="material-icons">insights</span>
+            <p class="leftBarLink transition-opacity duration-200">{% trans 'Analitika' %}</p>
+        </a>
+    </div>
+</aside>
+<script type="text/javascript">
+    const leftBar = document.getElementById("leftBar");
+    const hideLeftBarBtn = document.getElementById("hideLeftBarBtn");
+    const toggleIcon = document.getElementById("toggleIcon");
+    const leftBarLinks = document.querySelectorAll(".leftBarLink");
+    const compactLeftBar = localStorage.getItem("compactLeftBar");
+
+    if (compactLeftBar && compactLeftBar === "1") {
+        leftBar.classList.add("w-16");
+        leftBar.classList.remove("w-1/5");
+        toggleIcon.classList.toggle("rotate-180");
+        leftBarLinks.forEach(leftBarLink => {
+            leftBarLink.classList.add("opacity-0");
+            leftBarLink.classList.add("invisible");
+        });
+    }
+    else {
+        leftBar.classList.add("w-1/5");
+        leftBar.classList.remove("w-16");
+        toggleIcon.classList.remove("rotate-180");
+        leftBarLinks.forEach(leftBarLink => {
+            leftBarLink.classList.remove("opacity-0");
+            leftBarLink.classList.remove("invisible");
+        });
+    }
+
+    hideLeftBarBtn.addEventListener("click", () => {
+        leftBar.classList.toggle("w-1/5");
+        leftBar.classList.toggle("w-16"); // Set a smaller width when collapsed
+        toggleIcon.classList.toggle("rotate-180");
+
+        // if (leftBar.classList.contains("w-1/5")) {
+        //     localStorage.setItem("compactLeftBar", "")
+        // }
+        localStorage.setItem("compactLeftBar", localStorage.getItem("compactLeftBar") === "0" ? "1" : "0");
+
+        // Toggle opacity and visibility of links with a delay
+        leftBarLinks.forEach(leftBarLink => {
+            leftBarLink.classList.toggle("opacity-0");
+            leftBarLink.classList.toggle("invisible");
+        });
+    });
+
+</script>

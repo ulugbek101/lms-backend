@@ -1,7 +1,7 @@
 from django.contrib.auth.models import BaseUserManager
 from django.core.exceptions import ValidationError
 
-from .roles import UserRoles
+from .utils import UserRoles
 
 
 class UserManager(BaseUserManager):
