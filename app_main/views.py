@@ -50,3 +50,11 @@ def analytics(request):
         "hours": time_slots,
     }
     return render(request, "app_auth/analytics.html", context)
+
+
+@login_required(login_url="login")
+def subjects(request):
+    context = {
+        "subjects_page": True,
+    }
+    return render(request, "app_main/subjects.html", context)
