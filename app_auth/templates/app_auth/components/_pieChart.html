@@ -1,0 +1,31 @@
+<div class="flex flex-col gap-5 items-center h-3/4 w-1/2">
+    <canvas id="pieChart" class="h-full"></canvas>
+    <div class="flex flex-col items-center gap-2">
+        <b>Kutilayotgan tushum (so'mda):</b>
+        <p>50 000 000 / 70 000 000</p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const pieChartData = {
+            labels: ['Chiqimlar', 'Oyliklar', 'Foyda'],
+            datasets: [{
+                label: 'Umumiy tushum',
+                data: [5000000, 20000000, 30000000],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+        const pieChartConfig = {
+            type: 'pie',
+            data: pieChartData,
+        };
+        const pieChartContext = document.getElementById("pieChart").getContext("2d");
+        new Chart(pieChartContext, pieChartConfig);
+    });
+</script>

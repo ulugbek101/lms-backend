@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <title>CRM</title>
+</head>
+<body class="bg-gray-900 flex flex-col h-[100vh]">
+{% if navbar %}
+    {% include "components/_nav.html" %}
+{% endif %}
+
+<main class="flex justify-between h-full">
+    {% if left %}
+        {% include 'components/_left.html' %}
+    {% endif %}
+    <section class="w-full h-full px-2 ps-10 py-2">
+        {% block content %} {% endblock content %}
+    </section>
+    {# {% include 'components/_right.html' %} #}
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</body>
+</html>

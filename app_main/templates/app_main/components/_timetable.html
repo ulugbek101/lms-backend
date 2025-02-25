@@ -1,0 +1,53 @@
+<style>
+    .lesson-cell {
+        position: relative;
+        cursor: pointer;
+    }
+    .lesson-info {
+        display: none;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 12px;
+        width: 200px;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+    .lesson-cell:hover .lesson-info {
+        display: block;
+    }
+</style>
+
+<table class="w-full border-collapse border border-gray-800">
+    <tr>
+        <th class="h-10 border border-gray-800 px-4">Xona</th>
+        {% for hour in hours %}
+            <th class="h-10 border border-gray-800 px-4">{{ hour }}</th>
+        {% endfor %}
+    </tr>
+    {% for room, schedule in timetable.items %}
+        <tr>
+            <th class="h-10 border border-gray-800 px-4">{{ room }}</th>
+            {% for hour, lesson in schedule.items %}
+                <td class="h-10 border border-gray-800 px-4 text-center lesson-cell">
+                    {% if lesson %}
+                        {{ lesson.group_name }}
+                        <div class="lesson-info">
+                            <strong>Guruh:</strong> {{ lesson.group_name }}<br>
+                            <strong>O'qituvchi:</strong> {{ lesson.teacher_name }}<br>
+                            <strong>Boshlanish:</strong> {{ lesson.start_date }}<br>
+                            <strong>Tugash:</strong> {{ lesson.end_date }}<br>
+                            <strong>Talabalar:</strong> {{ lesson.student_count }}
+                        </div>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
