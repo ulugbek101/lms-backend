@@ -8,9 +8,17 @@
             {% include 'app_auth/components/_lineChart.html' %}
         </div>
         <div class="w-full flex flex-col gap-5 justify-between text-gray-300 font-medium mb-5 font-medium overflow-scroll">
-            <h2 class="text-center text-4xl text-gray-300 my-2">Bugungi dars jadvali</h2>
+            <h2 class="text-center text-4xl text-gray-300 my-2">
+                {% if timetable %}
+                    Bugungi dars jadvali
+                {% else %}
+                    Bugunga dars rejalashtirilmagan
+                {% endif %}
+            </h2>
             <div class="w-full h-full">
-                {% include 'app_main/components/_timetable.html' %}
+                {% if timetable %}
+                    {% include 'app_main/components/_timetable.html' %}
+                {% endif %}
             </div>
         </div>
     </div>

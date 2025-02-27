@@ -1,7 +1,17 @@
+import json
+import uuid
+
 from django.shortcuts import render
+from django.utils.safestring import mark_safe
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from app_auth.models import Group, Room
+from django.views.generic import ListView
+from django.core.paginator import Paginator
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+
+from app_auth.models import Group, Room, Subject
+from app_auth.serializers import SubjectSerializer
 
 
 @login_required(login_url="login")
@@ -20,13 +30,13 @@ def analytics(request):
     **Template:**
     - `app_auth/analytics.html`
     """
-    now = timezone.localtime()
+    # now = timezone.localtime()
     weekday = timezone.localdate().weekday() + 1  # Monday = 1, ..., Sunday = 7
 
     todays_weekday = "1-3-5" if weekday in range(
         1, 6, 2) else "2-4-6" if weekday in range(2, 7, 2) else ""
 
-    todays_lessons = Group.objects.all()
+    todays_lessons = Group.objects.filter(lesson_days=todays_weekday)
 
     # Time slots from 08:00 to 17:00
     time_slots = [f"{hour:02d}:00" for hour in range(8, 18)]
@@ -52,9 +62,30 @@ def analytics(request):
     return render(request, "app_auth/analytics.html", context)
 
 
-@login_required(login_url="login")
-def subjects(request):
-    context = {
+# @login_required(login_url="login")
+# def subjects(request):
+#     context = {
+#         "subjects_page": True,
+#         "subjects": Subject.objects.all(),
+#     }
+#     return render(request, "app_main/subjects.html", context)
+
+class SubjectsView(LoginRequiredMixin, ListView):
+    queryset = Subject.objects.all()
+    context_object_name = "subjects"
+    login_url = reverse_lazy("login")
+    template_name = "app_main/subjects.html"
+    paginator_class = Paginator
+    paginate_by = 2
+
+    extra_context = {
         "subjects_page": True,
     }
-    return render(request, "app_main/subjects.html", context)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["subjects_data"] = SubjectSerializer(self.queryset, many=True).data
+        return context
+
+
+
