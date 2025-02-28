@@ -7,35 +7,40 @@ from .utils import UserRoles
 class UserManager(BaseUserManager):
     role = None
 
-    def create_user(self, email, first_name, last_name, middle_name, password=None, **extra_fields):
+    def create_user(self, email, first_name, last_name, middle_name, phone_number, password=None, **extra_fields):
         if not email:
-            raise ValidationError("Users must have email address")
+            raise ValidationError("Users must have email field")
 
         if not first_name:
-            raise ValidationError("Users must have first name")
+            raise ValidationError("Users must have first_name field")
 
         if not last_name:
-            raise ValidationError("Users must have last name")
+            raise ValidationError("Users must have last_name field")
 
         if not middle_name:
-            raise ValidationError("Users must have middle name")
+            raise ValidationError("Users must have middle_name field")
+
+        if not phone_number:
+            raise ValidationError("Users must have phone_number field")
 
         user = self.model(
             email=self.normalize_email(email),
             first_name=first_name,
             last_name=last_name,
             middle_name=middle_name,
+            phone_number=phone_number,
             **extra_fields
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, first_name, last_name, middle_name, password, **extra_fields):
+    def create_superuser(self, email, first_name, last_name, middle_name, phone_number, password, **extra_fields):
         user = self.create_user(email=email,
                                 first_name=first_name,
                                 last_name=last_name,
                                 middle_name=middle_name,
+                                phone_number=phone_number,
                                 password=password,
                                 **extra_fields)
         user.is_staff = True
@@ -50,7 +55,7 @@ class UserManager(BaseUserManager):
 
 
 class SuperAdminManager(UserManager):
-    role = UserRoles.SUPERADMIN
+    role = UserRoles.SUPERUSER
 
 
 class AdminManager(UserManager):

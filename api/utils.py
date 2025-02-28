@@ -2,7 +2,7 @@ from django.db import models
 
 
 class UserRoles(models.TextChoices):
-    SUPERADMIN = "superadmin", "Superuser"
+    SUPERUSER = "superuser", "Superuser"
     ADMIN = "admin", "Administrator"
     TEACHER = "teacher", "Ustoz"
     PARENT = "parent", "Ota-ona"

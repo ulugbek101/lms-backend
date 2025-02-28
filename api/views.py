@@ -18,12 +18,12 @@ def user_profile(request):
     - `profile_page`: A boolean flag indicating that the profile page is active.
 
     **Template:**
-    - `app_auth/profile.html`
+    - `api/profile.html`
     """
     context = {
         "profile_page": True
     }
-    return render(request, "app_auth/profile.html", context)
+    return render(request, "api/profile.html", context)
 
 
 def user_login(request):
@@ -45,7 +45,7 @@ def user_login(request):
     - `next`: The next URL parameter, used for redirection after login.
 
     **Template:**
-    - `app_auth/login.html`
+    - `api/login.html`
 
     **Redirects:**
     - If already authenticated: Redirect to `profile`.
@@ -86,7 +86,7 @@ def user_login(request):
         "left": False,
         "next": request.GET.get("next")
     }
-    return render(request, "app_auth/login.html", context)
+    return render(request, "api/login.html", context)
 
 
 def user_logout(request):

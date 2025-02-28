@@ -20,8 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Custom apps
-    'app_auth',
-    'app_main',
+    'api',
 
     # 3rd party apps
     'rest_framework',
@@ -121,7 +120,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom User model
-AUTH_USER_MODEL = 'app_auth.User'
+AUTH_USER_MODEL = 'api.User'
 
 # Eskiz (SMS provider)
 ESKIZ_EMAIL = env.str("ESKIZ_EMAIL")
