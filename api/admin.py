@@ -5,7 +5,7 @@ from . import models
 
 admin.site.unregister(Group)
 admin.site.register(models.User)
-admin.site.register(models.SuperAdmin)
+admin.site.register(models.Superuser)
 admin.site.register(models.Admin)
 admin.site.register(models.Teacher)
 admin.site.register(models.Parent)

@@ -14,7 +14,7 @@ from .validators import group_price_validator
 from .utils import UserRoles
 from .managers import (
     UserManager,
-    SuperAdminManager,
+    SuperuserManager,
     AdminManager,
     TeacherManager,
     ParentManager,
@@ -221,12 +221,12 @@ class Group(models.Model):
     #     return self.start_time <= now_time <= self.end_time
 
 
-class SuperAdmin(User):
+class Superuser(User):
     """
     Proxy model for Superadmins with role assignment
     """
 
-    objects = SuperAdminManager()
+    objects = SuperuserManager()
 
     class Meta:
         proxy = True

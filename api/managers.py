@@ -54,7 +54,7 @@ class UserManager(BaseUserManager):
         return queryset.filter(role=self.role) if self.role else queryset
 
 
-class SuperAdminManager(UserManager):
+class SuperuserManager(UserManager):
     role = UserRoles.SUPERUSER
 
 

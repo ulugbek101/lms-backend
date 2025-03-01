@@ -1,9 +1,6 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
 
-from . import views
+router = DefaultRouter()
 
-urlpatterns = [
-    path('profile/', views.user_profile, name='profile'),
-    path('login/', views.user_login, name='login'),
-    path('logout/', views.user_logout, name='logout')
-]
+urlpatterns = router.urls
