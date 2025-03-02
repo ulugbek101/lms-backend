@@ -9,12 +9,12 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
 
-        token['email'] = user.name
-        token['first_name'] = user.name
-        token['last_name'] = user.name
-        token['role'] = user.name
-        token['is_superuser'] = user.name
-        token['is_staff'] = user.name
+        token['email'] = user.email
+        token['first_name'] = user.first_name
+        token['last_name'] = user.last_name
+        token['role'] = user.get_role_name
+        token['is_superuser'] = user.is_superuser
+        token['is_staff'] = user.is_staff
 
         return token
 
