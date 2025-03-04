@@ -100,7 +100,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     preferential_amount = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
     role = models.CharField(max_length=10, choices=UserRoles.choices)
     student_groups = models.ManyToManyField(to="Group", blank=True)
-    student_parent = models.ForeignKey(to="Parent", blank=True, null=True, on_delete=models.SET_NULL)
+    parent_students = models.ManyToManyField(to="Student", blank=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name", "middle_name", "phone_number"]

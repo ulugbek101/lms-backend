@@ -3,6 +3,12 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
-router.register(prefix="users", viewset=views.StaffViewSet, basename="users")
+router.register(prefix="parents", viewset=views.ParentViewSet, basename="parents")
+router.register(prefix="students", viewset=views.StudentViewSet, basename="students")
+router.register(prefix="teachers", viewset=views.TeacherViewSet, basename="teachers")
+router.register(prefix="groups", viewset=views.GroupViewSet, basename="groups")
+router.register(prefix="subjects", viewset=views.GroupViewSet, basename="subjects")
+router.register(prefix="rooms", viewset=views.GroupViewSet, basename="rooms")
+router.register(prefix="admins", viewset=views.AdminViewSet, basename="admins")
 
 urlpatterns = router.urls
