@@ -128,7 +128,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         Returns the full name of the user
         """
-        return f"{self.first_name.capitalize()} {self.last_name.capitalize()}"
+        return f"{self.first_name.capitalize()} {self.last_name.capitalize()} {self.middle_name.capitalize()}"
 
     @property
     def is_fully_paid(self) -> tuple[bool, Decimal]:
