@@ -1,0 +1,5 @@
+.venv/
+.idea/
+.env
+Dockerfile
+.DS_Store

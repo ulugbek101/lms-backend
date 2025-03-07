@@ -1,0 +1,12 @@
+name: lms-backend-project
+
+services:
+  app:
+    image: lms-backend-image
+    container_name: lms-backend-container
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
