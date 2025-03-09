@@ -1,11 +1,16 @@
 from rest_framework.viewsets import ModelViewSet
 from django.contrib.auth import get_user_model
 
-from .models import Parent, Student, Teacher, Group, Subject, Room, Admin
+from .models import Parent, Student, Teacher, Group, Subject, Room, Admin, Superuser
 from .serializers import ParentSerializer, StudentSerializer, TeacherSerializer, GroupSerializer, SubjectSerializer, \
-    RoomSerializer, AdminSerializer
+    RoomSerializer, AdminSerializer, SuperuserSerializer
 
 User = get_user_model()
+
+
+class SuperuserViewSet(ModelViewSet):
+    queryset = Superuser.objects.filter(is_active=True)
+    serializer_class = SuperuserSerializer
 
 
 class ParentViewSet(ModelViewSet):
