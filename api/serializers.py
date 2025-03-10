@@ -102,6 +102,11 @@ class SubjectSerializer(ModelSerializer):
         model = Subject
         fields = "__all__"
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation["groups"] = Group.objects.filter(subject=instance).count()
+        return representation
+    
 
 class RoomSerializer(ModelSerializer):
     class Meta:
@@ -201,11 +206,11 @@ class GroupSerializer(ModelSerializer):
 
 
     def create(self, validated_data):
-        validated_data = self.update_group_status()
+        validated_data = self.update_group_status(validated_data)
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
-        validated_data = self.update_group_status()
+        validated_data = self.update_group_status(validated_data)
         return super().update(instance, validated_data)
 
 
